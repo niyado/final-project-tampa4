@@ -3,7 +3,7 @@ CREATE DATABASE `portfolio` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8m
 CREATE TABLE stock(
     symbol VARCHAR(45) PRIMARY KEY,
     name VARCHAR(45),
-    quantity DECIMAL
+    quantity INT
 )
 
 CREATE TABLE `stock` (
