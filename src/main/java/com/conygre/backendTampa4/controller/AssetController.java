@@ -30,4 +30,14 @@ public class AssetController {
     public void addStock(@RequestBody Asset asset){
         assetService.addAsset(asset);
     }
+
+   /* @GetMapping("/findByType/{type}")
+    ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
+        return new ResponseEntity<Iterable<Asset>>(assetService.findByType(type), HttpStatus.OK);
+    }*/
+
+    @PutMapping("/editStock/{id}")
+    ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {
+        return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
+    }
 }

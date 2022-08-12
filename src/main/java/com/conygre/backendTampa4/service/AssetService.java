@@ -35,5 +35,7 @@ public class AssetService {
         dao.save(asset);
     }
 
+    //public Collection<Asset> findByType(String type) {return (Collection<Asset>) dao.findByType(type);}
+
 }
 
