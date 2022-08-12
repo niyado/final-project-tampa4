@@ -1,7 +1,7 @@
 package com.conygre.backendTampa4.service;
 
 
-import com.conygre.backendTampa4.dao.Tampa4Repository;
+import com.conygre.backendTampa4.dao.AssetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class Tampa4Service {
 
     @Autowired
-    private Tampa4Repository dao;
+    private AssetRepository dao;
 
 }
 
