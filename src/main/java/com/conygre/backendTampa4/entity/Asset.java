@@ -1,22 +1,26 @@
 package com.conygre.backendTampa4.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public abstract class Asset {
+@Table(name = "assets")
+public class Asset implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String symbol;
 
     private String name;
-    private double quantity;
+    private int quantity;
+    private String assetType;
 
     public Asset() {}
 
-    public Asset(String symbol, String name, double quantity) {
+    public Asset(String symbol, String name, int quantity, String assetType) {
         this.symbol = symbol;
         this.name = name;
         this.quantity = quantity;
+        this.assetType = assetType;
     }
 
     public String getSymbol() {
@@ -39,7 +43,15 @@ public abstract class Asset {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getAssetType() {
+        return assetType;
+    }
+
+    public void setAssetType(String assetType) {
+        this.assetType = assetType;
     }
 }

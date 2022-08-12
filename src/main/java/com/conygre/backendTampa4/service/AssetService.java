@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -22,7 +23,11 @@ public class AssetService {
     }
 
     public Asset getAssetInfo(String symbol) {
-        return dao.getReferenceById(symbol);
+        Optional<Asset> optionalAsset = dao.findById(symbol);
+        if (optionalAsset.isPresent())
+            return optionalAsset.get();
+
+        return null;
     }
 
 }

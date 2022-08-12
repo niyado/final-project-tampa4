@@ -1,10 +1,11 @@
 package com.conygre.backendTampa4.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "trades")
-public class Trade {
+public class Trade implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tradeId;
