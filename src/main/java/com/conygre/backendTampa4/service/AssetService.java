@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
 @Service
@@ -25,9 +26,13 @@ public class AssetService {
         try {
             Asset asset = dao.getReferenceById(symbol);
             return asset;
-        } catch(Exception e) {
+        } catch(EntityNotFoundException e) {
             return null;
         }
+    }
+
+    public void addAsset(Asset asset) {
+        dao.save(asset);
     }
 
 }
