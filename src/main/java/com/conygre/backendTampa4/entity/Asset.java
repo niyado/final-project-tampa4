@@ -11,6 +11,8 @@ public abstract class Asset {
     private String name;
     private double quantity;
 
+    public Asset() {}
+
     public Asset(String symbol, String name, double quantity) {
         this.symbol = symbol;
         this.name = name;
