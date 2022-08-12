@@ -1,7 +1,13 @@
 package com.conygre.backendTampa4.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public abstract class Asset {
+    @Id
     private String symbol;
+
     private String name;
     private double quantity;
 
