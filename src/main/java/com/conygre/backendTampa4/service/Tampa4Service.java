@@ -22,7 +22,12 @@ public class Tampa4Service {
     }
 
     public Asset getAssetInfo(String symbol) {
-        return dao.getReferenceById(symbol);
+        try {
+            Asset asset = dao.getReferenceById(symbol);
+            return asset;
+        } catch(Exception e) {
+            return null;
+        }
     }
 
 }

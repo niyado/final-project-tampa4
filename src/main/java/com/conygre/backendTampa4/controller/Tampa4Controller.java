@@ -26,7 +26,13 @@ public class Tampa4Controller {
 
     @GetMapping("/get/{symbol}")
     public ResponseEntity<Asset> getAssetInfo(@PathVariable("symbol") String symbol) {
-        return new ResponseEntity<Asset>(tampa4Service.getAssetInfo(symbol), HttpStatus.OK);
+        Asset asset = tampa4Service.getAssetInfo(symbol);
+        if (asset != null) {
+            return new ResponseEntity<Asset>(asset, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Asset>((Asset) null, HttpStatus.NOT_FOUND);
+        }
+
 
     }
 
