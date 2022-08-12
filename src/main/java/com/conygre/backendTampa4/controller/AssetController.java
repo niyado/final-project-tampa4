@@ -5,11 +5,7 @@ import com.conygre.backendTampa4.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -21,12 +17,27 @@ public class AssetController {
 
     @GetMapping("/get/{symbol}")
     public ResponseEntity<Asset> getAssetInfo(@PathVariable("symbol") String symbol) {
-        return new ResponseEntity<Asset>(assetService.getAssetInfo(symbol), HttpStatus.OK);
-
+        Asset asset = assetService.getAssetInfo(symbol);
+        return new ResponseEntity<Asset>(asset, HttpStatus.OK);
     }
 
     @GetMapping("/getAll")
     ResponseEntity<Iterable<Asset>> getAllAssets() {
         return new ResponseEntity<Iterable<Asset>>(assetService.getAllAssets(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/newAsset", consumes = "application/json")
+    public void addStock(@RequestBody Asset asset){
+        assetService.addAsset(asset);
+    }
+
+   /* @GetMapping("/findByType/{type}")
+    ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
+        return new ResponseEntity<Iterable<Asset>>(assetService.findByType(type), HttpStatus.OK);
+    }*/
+
+    @PutMapping("/editStock/{id}")
+    ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {
+        return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
     }
 }
