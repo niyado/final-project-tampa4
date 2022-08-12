@@ -12,7 +12,7 @@ import java.util.Collection;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
-public class Tampa4Service {
+public class AssetService {
 
     @Autowired
     private AssetRepository dao;
