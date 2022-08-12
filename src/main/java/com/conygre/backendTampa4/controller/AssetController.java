@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @CrossOrigin
 @RequestMapping("/api/portfolio")
@@ -26,13 +21,7 @@ public class Tampa4Controller {
 
     @GetMapping("/get/{symbol}")
     public ResponseEntity<Asset> getAssetInfo(@PathVariable("symbol") String symbol) {
-        Asset asset = tampa4Service.getAssetInfo(symbol);
-        if (asset != null) {
-            return new ResponseEntity<Asset>(asset, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Asset>((Asset) null, HttpStatus.NOT_FOUND);
-        }
-
+        return new ResponseEntity<Asset>(tampa4Service.getAssetInfo(symbol), HttpStatus.OK);
 
     }
 
