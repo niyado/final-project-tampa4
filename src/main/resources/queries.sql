@@ -1,8 +1,9 @@
 CREATE DATABASE `portfolio` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-CREATE TABLE `stock` (
-  `symbol` varchar(45) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+CREATE TABLE `assets` (
+  `symbol` varchar(255) NOT NULL,
+  `asset_type` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `quantity` int DEFAULT NULL,
   PRIMARY KEY (`symbol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
