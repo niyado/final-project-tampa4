@@ -28,7 +28,7 @@ public class AssetController {
 
     @PostMapping(value = "/newAsset", consumes = "application/json")
     public void addStock(@RequestBody Asset asset){
-        assetService.addAsset(asset);
+        //assetService.addAsset(asset);
     }
 
    /* @GetMapping("/findByType/{type}")

@@ -15,6 +15,8 @@ public class Trade implements Serializable {
     private int timestampOfTrade;
     private String type;
 
+    public Trade(){}
+
     public Trade(int shares, double price, int timestampOfTrade, String type) {
         this.shares = shares;
         this.price = price;
