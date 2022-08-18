@@ -1,6 +1,5 @@
 package com.conygre.backendTampa4.controller;
 
-import com.conygre.backendTampa4.entity.Asset;
 import com.conygre.backendTampa4.entity.Trade;
 import com.conygre.backendTampa4.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ public class TradeController {
     }
 
     @PostMapping(value = "/newTrade", consumes = "application/json")
-    public void newTrade(@RequestBody Asset asset){
-
+    public void newTrade(@RequestBody Trade trade){
     }
 }
