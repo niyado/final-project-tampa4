@@ -31,10 +31,10 @@ public class AssetController {
         //assetService.addAsset(asset);
     }
 
-   /* @GetMapping("/findByType/{type}")
+   @GetMapping("/findByType/{type}")
     ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
         return new ResponseEntity<Iterable<Asset>>(assetService.findByType(type), HttpStatus.OK);
-    }*/
+    }
 
     @PutMapping("/editStock/{id}")
     ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {

@@ -26,9 +26,15 @@ public class AssetService {
         Optional<Asset> optionalAsset = dao.findById(symbol);
         if (optionalAsset.isPresent())
             return optionalAsset.get();
-
         return null;
     }
 
+    public void addAsset(Asset asset) {
+        dao.save(asset);
+    }
+
+    public Collection<Asset> findByType(String type) {
+        return dao.findByAssetType(type);
+    }
 }
 
