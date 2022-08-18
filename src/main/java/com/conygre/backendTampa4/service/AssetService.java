@@ -36,5 +36,9 @@ public class AssetService {
     public Collection<Asset> findByType(String type) {
         return dao.findByAssetType(type);
     }
+
+    public void deleteAsset(Asset asset) {
+        dao.delete(asset);
+    }
 }
 

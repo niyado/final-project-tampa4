@@ -34,12 +34,17 @@ public class AssetController {
     }
 
    @GetMapping("/findByType/{type}")
-    ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
+    public ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
         return new ResponseEntity<Iterable<Asset>>(assetService.findByType(type), HttpStatus.OK);
     }
 
-    @PutMapping("/editStock/{id}")
-    ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {
+    @PutMapping("/edit/{symbol}")
+    public ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {
         return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteAsset(@RequestBody Asset asset) {
+        assetService.deleteAsset(asset);
     }
 }
