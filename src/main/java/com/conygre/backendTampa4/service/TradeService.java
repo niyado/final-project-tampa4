@@ -24,4 +24,8 @@ public class TradeService {
     public Iterable<Trade> getAllTrades() {
         return dao.findAll();
     }
+
+    public void addTrade(Trade trade) {
+        dao.save(trade);
+    }
 }
