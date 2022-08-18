@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Table(name = "assets")
 public class Asset implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String symbol;
     private String name;
     private int quantity;
@@ -52,5 +51,15 @@ public class Asset implements Serializable {
 
     public void setAssetType(String assetType) {
         this.assetType = assetType;
+    }
+
+    @Override
+    public String toString() {
+        return "Asset{" +
+                "symbol='" + symbol + '\'' +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", assetType='" + assetType + '\'' +
+                '}';
     }
 }
