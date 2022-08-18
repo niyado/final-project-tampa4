@@ -9,7 +9,6 @@ public class Asset implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String symbol;
-
     private String name;
     private int quantity;
     private String assetType;
