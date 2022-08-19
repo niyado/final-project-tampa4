@@ -29,5 +29,6 @@ public class TradeController {
     @PostMapping(value = "/newTrade", consumes = "application/json")
     public void newTrade(@RequestBody Trade trade){
         tradeService.addTrade(trade);
+        // trigger here that modifies the quantity in the asset table
     }
 }

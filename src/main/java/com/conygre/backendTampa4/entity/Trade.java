@@ -10,6 +10,7 @@ public class Trade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tradeId;
 
+    private String symbol;
     private int shares;
     private double price;
     private int timestampOfTrade;
@@ -17,11 +18,20 @@ public class Trade implements Serializable {
 
     public Trade(){}
 
-    public Trade(int shares, double price, int timestampOfTrade, String type) {
+    public Trade(int shares, String symbol, double price, int timestampOfTrade, String type) {
+        this.symbol = symbol;
         this.shares = shares;
         this.price = price;
         this.timestampOfTrade = timestampOfTrade;
         this.type = type;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public int getTradeId() {
