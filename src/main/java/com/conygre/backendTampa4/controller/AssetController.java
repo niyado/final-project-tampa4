@@ -43,8 +43,8 @@ public class AssetController {
         return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteAsset(@RequestBody Asset asset) {
-        assetService.deleteAsset(asset);
+    @DeleteMapping("/{symbol}")
+    public void deleteAsset(@PathVariable String symbol) {
+        assetService.deleteAsset(symbol);
     }
 }

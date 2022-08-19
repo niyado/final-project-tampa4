@@ -37,8 +37,8 @@ public class AssetService {
         return dao.findByAssetType(type);
     }
 
-    public void deleteAsset(Asset asset) {
-        dao.delete(asset);
+    public void deleteAsset(String symbol) {
+        dao.deleteById(symbol);
     }
 }
 
