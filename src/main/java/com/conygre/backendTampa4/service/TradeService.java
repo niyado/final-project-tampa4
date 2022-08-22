@@ -3,8 +3,11 @@ package com.conygre.backendTampa4.service;
 import com.conygre.backendTampa4.dao.TradeRepository;
 import com.conygre.backendTampa4.entity.Asset;
 import com.conygre.backendTampa4.entity.Trade;
+import com.conygre.backendTampa4.exceptions.InsufficientFundsException;
+import com.conygre.backendTampa4.exceptions.NotEnoughQuantityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -13,6 +16,12 @@ public class TradeService {
 
     @Autowired
     private TradeRepository dao;
+
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private AssetService assetService;
 
     public Trade getTradeInfo(Integer id) {
         Optional<Trade> optionalTrade = dao.findById(id);
@@ -25,7 +34,47 @@ public class TradeService {
         return dao.findAll();
     }
 
-    public void addTrade(Trade trade) {
-        dao.save(trade);
+    @Transactional
+    public void addTrade(Trade trade) throws NotEnoughQuantityException, InsufficientFundsException {
+
+        double total = trade.getShares() * trade.getPrice();
+
+        if (trade.getType().equalsIgnoreCase("BUY"))
+        {
+            if (accountService.getBalance() >= total)
+            {
+                if (assetService.assetExists(trade.getSymbol()))
+                {
+                    Asset asset = assetService.getAsset(trade.getSymbol());
+                    asset.setQuantity(asset.getQuantity() + trade.getShares());
+                }
+                else
+                {
+                    assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getShares(), trade.getSecurityType()));
+                }
+                dao.save(trade);
+                assetService.modifyQuantity(trade.getSymbol(), trade.getShares());
+                accountService.modifyBalance(-total);
+            }
+            else
+            {
+                throw new InsufficientFundsException("insufficient funds");
+            }
+        }
+        else if (trade.getType().equalsIgnoreCase("SELL"))
+        {
+            Asset asset = assetService.getAsset(trade.getSymbol());
+            Integer owned = asset.getQuantity();
+            if (owned < trade.getShares() || owned == null)
+            {
+                throw new NotEnoughQuantityException("user doesn't own enough of this symbol");
+            }
+            else
+            {
+                dao.save(trade);
+                assetService.modifyQuantity(trade.getSymbol(), -trade.getShares());
+                accountService.modifyBalance(total);
+            }
+        }
     }
 }

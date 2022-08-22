@@ -11,22 +11,39 @@ public class Trade implements Serializable {
     private int tradeId;
 
     private String symbol;
+    private String name;
     private int shares;
     private double price;
     private int timestampOfTrade;
     private String type;
-
-    @ManyToOne
-    Asset asset;
+    private String securityType;
 
     public Trade(){}
 
-    public Trade(int shares, String symbol, double price, int timestampOfTrade, String type) {
+    public Trade(String symbol, String name, int shares, double price, int timestampOfTrade, String type, String securityType) {
         this.symbol = symbol;
+        this.name = name;
         this.shares = shares;
         this.price = price;
         this.timestampOfTrade = timestampOfTrade;
         this.type = type;
+        this.securityType = securityType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSecurityType() {
+        return securityType;
+    }
+
+    public void setSecurityType(String securityType) {
+        this.securityType = securityType;
     }
 
     public String getSymbol() {

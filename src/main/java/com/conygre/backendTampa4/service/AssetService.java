@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -54,15 +55,18 @@ public class AssetService {
     {
         Optional<Asset> assetOptional = dao.findById(symbol);
         if (assetOptional.isEmpty())
-            return null;
+            throw new EntityNotFoundException("user doesn't own this symbol");
         else
             return assetOptional.get();
     }
 
-    public void modifyQuantity(String symbol, int value)
+    @Transactional
+    public void modifyQuantity(String symbol, int quantity)
     {
         Asset asset = getAsset(symbol);
-        asset.setQuantity(asset.getQuantity() + value);
+        asset.setQuantity(asset.getQuantity() + quantity);
+        if (asset.getQuantity() == 0)
+            deleteAsset(symbol);
     }
 }
 
