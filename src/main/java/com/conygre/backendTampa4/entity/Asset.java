@@ -37,7 +37,7 @@ public class Asset implements Serializable {
         this.name = name;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 

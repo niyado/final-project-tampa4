@@ -16,6 +16,9 @@ public class Trade implements Serializable {
     private int timestampOfTrade;
     private String type;
 
+    @ManyToOne
+    Asset asset;
+
     public Trade(){}
 
     public Trade(int shares, String symbol, double price, int timestampOfTrade, String type) {

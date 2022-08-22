@@ -40,5 +40,29 @@ public class AssetService {
     public void deleteAsset(String symbol) {
         dao.deleteById(symbol);
     }
+
+    public boolean assetExists(String symbol)
+    {
+        Optional<Asset> assetOptional = dao.findById(symbol);
+        if (assetOptional.isEmpty())
+            return false;
+        else
+            return true;
+    }
+
+    public Asset getAsset(String symbol)
+    {
+        Optional<Asset> assetOptional = dao.findById(symbol);
+        if (assetOptional.isEmpty())
+            return null;
+        else
+            return assetOptional.get();
+    }
+
+    public void modifyQuantity(String symbol, int value)
+    {
+        Asset asset = getAsset(symbol);
+        asset.setQuantity(asset.getQuantity() + value);
+    }
 }
 
