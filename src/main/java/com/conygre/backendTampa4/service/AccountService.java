@@ -42,7 +42,7 @@ public class AccountService {
 
     public Account getAccount()
     {
-        Optional<Account> optionalUser = accountRepository.findById(applicationConfig.getAccountName());
+        Optional<Account> optionalUser = dao.findById(applicationConfig.getAccountName());
         if (optionalUser.isPresent())
             return optionalUser.get();
         else
