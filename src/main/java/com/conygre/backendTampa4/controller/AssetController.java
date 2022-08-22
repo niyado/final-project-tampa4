@@ -28,23 +28,8 @@ public class AssetController {
         return new ResponseEntity<Iterable<Asset>>(assetService.getAllAssets(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/newAsset", consumes = "application/json")
-    public void addStock(@RequestBody Asset asset){
-        assetService.addAsset(asset);
-    }
-
    @GetMapping("/findByType/{type}")
     public ResponseEntity<Iterable<Asset>> findByType(@PathVariable("type") String type) {
         return new ResponseEntity<Iterable<Asset>>(assetService.findByType(type), HttpStatus.OK);
-    }
-
-    @PutMapping("/edit/{symbol}")
-    public ResponseEntity<String> getAllAssets(@PathVariable("type") Asset asset) {
-        return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{symbol}")
-    public void deleteAsset(@PathVariable String symbol) {
-        assetService.deleteAsset(symbol);
     }
 }
