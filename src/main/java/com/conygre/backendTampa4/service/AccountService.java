@@ -4,10 +4,12 @@ package com.conygre.backendTampa4.service;
 import com.conygre.backendTampa4.config.ApplicationConfig;
 import com.conygre.backendTampa4.dao.AccountRepository;
 import com.conygre.backendTampa4.entity.Account;
+import com.conygre.backendTampa4.entity.BalanceLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -18,7 +20,8 @@ public class AccountService {
     private AccountRepository dao;
     @Autowired
     private ApplicationConfig applicationConfig;
-
+    @Autowired
+    private BalanceLogService balanceLogService;
 
     private Account getAccount(String accountName) {
         return Objects.requireNonNull(dao.findById(applicationConfig.getAccountName()).orElse(null));
@@ -28,16 +31,13 @@ public class AccountService {
         return getAccount(applicationConfig.getAccountName()).getBalance();
     }
 
+
     public void withdraw(Double amount) {
-        Account account = getAccount(applicationConfig.getAccountName());
-        account.setBalance(account.getBalance() - amount);
-        dao.save(account);
+        this.modifyBalance(-amount);
     }
 
     public void deposit(Double amount) {
-        Account account = getAccount(applicationConfig.getAccountName());
-        account.setBalance(account.getBalance() + amount);
-        dao.save(account);
+        this.modifyBalance(amount);
     }
 
     public Account getAccount()
@@ -55,6 +55,8 @@ public class AccountService {
         Account myAccount = getAccount();
         double currentBalance = myAccount.getBalance();
         myAccount.setBalance(currentBalance + value);
+        int unixTime = (int) Instant.now().getEpochSecond();
+        balanceLogService.logBalanceChange(new BalanceLog(unixTime, this.getBalance()));
     }
 
 }
