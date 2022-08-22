@@ -1,6 +1,15 @@
 package com.conygre.backendTampa4.entity;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "account")
 public class Account {
+
+    @Id
     private String name;
     private double balance;
 
