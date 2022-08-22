@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Type;
-
 @RestController
 @CrossOrigin
 @RequestMapping("/api/portfolio/assets")
@@ -43,7 +41,7 @@ public class AssetController {
         return new ResponseEntity<String>(String.format("Updated %s", asset.getSymbol()), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{symbol}")
+    @DeleteMapping("delete/{symbol}")
     public void deleteAsset(@PathVariable String symbol) {
         assetService.deleteAsset(symbol);
     }

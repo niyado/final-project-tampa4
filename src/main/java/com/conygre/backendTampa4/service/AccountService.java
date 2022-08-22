@@ -13,13 +13,28 @@ import java.util.Objects;
 public class AccountService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountRepository dao;
     @Autowired
     private ApplicationConfig applicationConfig;
 
+
+    private Account getAccount(String accountName) {
+        return Objects.requireNonNull(dao.findById(applicationConfig.getAccountName()).orElse(null));
+    }
+
     public Double getBalance() {
-        Account account = Objects.requireNonNull(accountRepository.findById(applicationConfig.getAccountName())
-                .orElse(null));
-        return account.getBalance();
+        return getAccount(applicationConfig.getAccountName()).getBalance();
+    }
+
+    public void withdraw(Double amount) {
+        Account account = getAccount(applicationConfig.getAccountName());
+        account.setBalance(account.getBalance() - amount);
+        dao.save(account);
+    }
+
+    public void deposit(Double amount) {
+        Account account = getAccount(applicationConfig.getAccountName());
+        account.setBalance(account.getBalance() + amount);
+        dao.save(account);
     }
 }
