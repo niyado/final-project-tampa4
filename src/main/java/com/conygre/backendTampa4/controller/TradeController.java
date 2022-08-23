@@ -40,4 +40,10 @@ public class TradeController {
     public void newTrade(@RequestBody Trade trade) throws InsufficientFundsException, NotEnoughQuantityException {
         tradeService.addTrade(trade);
     }
+
+    @GetMapping("/getAverageBuyPrice/{symbol}")
+    public ResponseEntity<Double> getAverageBuyPrice(@PathVariable("symbol") String symbol) {
+        return new ResponseEntity<Double>(tradeService.getAverageBuyPrice(symbol), HttpStatus.OK);
+    }
+
 }

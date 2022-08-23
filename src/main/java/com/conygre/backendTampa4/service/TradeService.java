@@ -78,4 +78,8 @@ public class TradeService {
             }
         }
     }
+
+    public Double getAverageBuyPrice(String symbol) {
+        return dao.getAverageBuyPrice(symbol);
+    }
 }
