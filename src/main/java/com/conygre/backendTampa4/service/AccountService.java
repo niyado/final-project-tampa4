@@ -23,14 +23,9 @@ public class AccountService {
     @Autowired
     private BalanceLogService balanceLogService;
 
-    private Account getAccount(String accountName) {
-        return Objects.requireNonNull(dao.findById(applicationConfig.getAccountName()).orElse(null));
-    }
-
     public Double getBalance() {
-        return getAccount(applicationConfig.getAccountName()).getBalance();
+        return getAccount().getBalance();
     }
-
 
     public void withdraw(Double amount) {
         this.modifyBalance(-amount);

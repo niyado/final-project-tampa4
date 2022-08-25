@@ -21,6 +21,13 @@ public class Asset implements Serializable {
         this.assetType = assetType;
     }
 
+    public Asset(String symbol, String name, String assetType) {
+        this.symbol = symbol;
+        this.name = name;
+        this.assetType = assetType;
+        this.quantity = 0;
+    }
+
     public String getSymbol() {
         return symbol;
     }

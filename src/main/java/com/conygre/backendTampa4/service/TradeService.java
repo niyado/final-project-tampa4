@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,7 +51,7 @@ public class TradeService {
                 }
                 else
                 {
-                    assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getShares(), trade.getSecurityType()));
+                    assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getSecurityType()));
                 }
                 dao.save(trade);
                 assetService.modifyQuantity(trade.getSymbol(), trade.getShares());
