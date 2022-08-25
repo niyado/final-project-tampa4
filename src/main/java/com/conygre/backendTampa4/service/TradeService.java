@@ -48,7 +48,6 @@ public class TradeService {
                 {
                     assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getSecurityType()));
                 }
-
                 dao.save(trade);
                 assetService.modifyQuantity(trade.getSymbol(), trade.getShares());
                 accountService.modifyBalance(-total);
@@ -62,7 +61,7 @@ public class TradeService {
         {
             Asset asset = assetService.getAsset(trade.getSymbol());
             Integer owned = asset.getQuantity();
-            if (owned < trade.getShares() || owned == null)
+            if (owned < trade.getShares())
             {
                 throw new NotEnoughQuantityException("user doesn't own enough of this symbol");
             }
