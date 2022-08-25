@@ -44,15 +44,11 @@ public class TradeService {
         {
             if (accountService.getBalance() >= total)
             {
-                if (assetService.assetExists(trade.getSymbol()))
-                {
-                    Asset asset = assetService.getAsset(trade.getSymbol());
-                    asset.setQuantity(asset.getQuantity() + trade.getShares());
-                }
-                else
+                if (!assetService.assetExists(trade.getSymbol()))
                 {
                     assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getSecurityType()));
                 }
+
                 dao.save(trade);
                 assetService.modifyQuantity(trade.getSymbol(), trade.getShares());
                 accountService.modifyBalance(-total);
