@@ -51,7 +51,7 @@ public class TradeService {
                 }
                 else
                 {
-                    assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getShares(), trade.getSecurityType()));
+                    assetService.addAsset(new Asset(trade.getSymbol(), trade.getName(), trade.getSecurityType()));
                 }
                 dao.save(trade);
                 assetService.modifyQuantity(trade.getSymbol(), trade.getShares());

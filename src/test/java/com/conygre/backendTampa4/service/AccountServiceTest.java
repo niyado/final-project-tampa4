@@ -3,6 +3,7 @@ package com.conygre.backendTampa4.service;
 import com.conygre.backendTampa4.config.ApplicationConfig;
 import com.conygre.backendTampa4.dao.AccountRepository;
 import com.conygre.backendTampa4.entity.Account;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,18 +32,17 @@ class AccountServiceTest {
     @Mock
     private BalanceLogService balanceLogService;
 
-    @Mock Account account;
-
 
     @Test
     void getBalanceTest() {
         // arrange
-        Account account = new Account("user", 0d);
+        Account account = new Account("user", 1d);
         when(applicationConfig.getAccountName()).thenReturn("user");
         when(accountRepository.findById(applicationConfig.getAccountName())).thenReturn(Optional.of(account));
 
         // act
         Double balance = accountService.getBalance();
+        System.out.println(balance);
 
         // assert
         assertEquals(account.getBalance(), balance);
@@ -52,27 +52,27 @@ class AccountServiceTest {
     void withdrawTest() {
         // arrange
         Account account = new Account("user", 100d);
+        when(applicationConfig.getAccountName()).thenReturn("user");
+        when(accountRepository.findById(applicationConfig.getAccountName())).thenReturn(Optional.of(account));
 
         // act
+        accountService.withdraw(20d);
 
         // assert
-
+        assertEquals(80d, account.getBalance());
     }
 
     @Test
     void depositTest() {
-    }
+        // arrange
+        Account account = new Account("user", 100d);
+        when(applicationConfig.getAccountName()).thenReturn("user");
+        when(accountRepository.findById(applicationConfig.getAccountName())).thenReturn(Optional.of(account));
 
-    @Test
-    void getAccountTest() {
-        when(accountRepository.findById(applicationConfig.getAccountName())).thenReturn(Optional.empty());
+        // act
+        accountService.deposit(20d);
 
-        Account account = accountService.getAccount();
-
-
-    }
-
-    @Test
-    void modifyBalanceTest() {
+        // assert
+        assertEquals(120d, account.getBalance());
     }
 }
