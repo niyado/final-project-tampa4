@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
@@ -27,10 +28,13 @@ public class AssetService {
         Optional<Asset> optionalAsset = dao.findById(symbol);
         if (optionalAsset.isPresent())
             return optionalAsset.get();
-        return null;
+        throw new EntityNotFoundException("user doesn't own this symbol");
     }
 
     public void addAsset(Asset asset) {
+        if (assetExists(asset.getSymbol())) {
+            throw new EntityExistsException("user already has at least one of this assest");
+        }
         dao.save(asset);
     }
 
@@ -39,16 +43,17 @@ public class AssetService {
     }
 
     public void deleteAsset(String symbol) {
-        dao.deleteById(symbol);
+        if (assetExists(symbol)) {
+            dao.deleteById(symbol);
+        } else {
+            throw new EntityNotFoundException("user doesn't own this symbol");
+        }
     }
 
     public boolean assetExists(String symbol)
     {
         Optional<Asset> assetOptional = dao.findById(symbol);
-        if (assetOptional.isEmpty())
-            return false;
-        else
-            return true;
+        return assetOptional.isPresent();
     }
 
     public Asset getAsset(String symbol)

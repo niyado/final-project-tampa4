@@ -2,6 +2,7 @@ package com.conygre.backendTampa4.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "assets")
@@ -68,5 +69,21 @@ public class Asset implements Serializable {
                 ", quantity=" + quantity +
                 ", assetType='" + assetType + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Asset asset = (Asset) o;
+        return quantity == asset.quantity &&
+                Objects.equals(symbol, asset.symbol) &&
+                Objects.equals(name, asset.name) &&
+                Objects.equals(assetType, asset.assetType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol, name, quantity, assetType);
     }
 }
