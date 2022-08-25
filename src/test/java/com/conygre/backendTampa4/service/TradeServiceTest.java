@@ -46,7 +46,7 @@ public class TradeServiceTest {
         assertEquals(sampleTrade, trade);
     }
 
-
+    @Disabled
     @Test
     void BuyMoreOfAssetTest() throws Exception{
         // arrange
@@ -71,5 +71,26 @@ public class TradeServiceTest {
         // assert
         assertEquals(4, asset.getQuantity());
         verify(accountService, times(1)).modifyBalance(-total);
+    }
+
+    @Disabled
+    @Test
+    void sellAssetTest() throws Exception{
+        // arrange
+        Trade sampleTrade = new Trade(
+                "AAPL", "Apple Inc.", 1, 10.00d, 1, "SELL", "STOCK"
+        );
+
+        Asset asset = new Asset("AAPL", "Apple Inc.", 2, "STOCK");
+        double total = sampleTrade.getShares() * sampleTrade.getPrice();
+
+        when(assetService.getAsset(sampleTrade.getSymbol())).thenReturn(asset);
+        when(dao.save(sampleTrade)).thenReturn(sampleTrade);
+
+        // act
+        tradeService.addTrade(sampleTrade);
+
+        // assert
+        verify(accountService, times(1)).modifyBalance(total);
     }
 }
