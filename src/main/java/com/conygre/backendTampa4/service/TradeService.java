@@ -26,9 +26,7 @@ public class TradeService {
 
     public Trade getTradeInfo(Integer id) {
         Optional<Trade> optionalTrade = dao.findById(id);
-        if (optionalTrade.isPresent())
-            return optionalTrade.get();
-        return null;
+        return optionalTrade.orElse(null);
     }
 
     public Iterable<Trade> getAllTrades() {

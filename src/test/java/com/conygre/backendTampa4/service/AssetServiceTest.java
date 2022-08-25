@@ -34,7 +34,7 @@ class AssetServiceTest {
     @InjectMocks
     private AssetService assetService;
 
-    private final ArrayList<Asset> assets = new ArrayList<Asset> (Arrays.asList(
+    private final ArrayList<Asset> assets = new ArrayList<> (Arrays.asList(
             new Asset("AAPL", "APPLE", 15, "stock"),
             new Asset("GOOGL", "GOOGLE", 2, "stock"),
             new Asset("AMZN", "AMAZON", 1, "stock"),
